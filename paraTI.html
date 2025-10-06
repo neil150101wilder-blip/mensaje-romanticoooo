@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Un Mensaje para Ti 💕</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
+      color: white;
+      text-align: center;
+      backdrop-filter: brightness(70%);
+      overflow: hidden;
+    }
+
+    .mensaje {
+      background: rgba(0,0,0,0.5);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0px 0px 15px rgba(255,255,255,0.6);
+      animation: aparecer 2s ease;
+      max-width: 500px;
+      width: 90%;
+    }
+
+    .mensaje h1 {
+      font-size: 2.5em;
+      margin-bottom: 15px;
+      color: #ffdde1;
+    }
+
+    .mensaje p {
+      font-size: 1.3em;
+      line-height: 1.5;
+      color: #fff;
+    }
+
+    @keyframes aparecer {
+      from {opacity: 0; transform: scale(0.8);}
+      to {opacity: 1; transform: scale(1);}
+    }
+
+    .botones {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 25px;
+    }
+
+    button {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 25px;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: bold;
+    }
+
+    #btnSi {
+      background: #ff85a2;
+      color: white;
+    }
+
+    #btnSi:hover {
+      background: #ff5070;
+      transform: scale(1.05);
+    }
+
+    #btnNo {
+      background: #6c757d;
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    #btnNo:hover {
+      background: #5a6268;
+    }
+
+    .mensaje-final {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      animation: aparecer 1s ease;
+    }
+
+    .mensaje-final p {
+      font-size: 1.4em;
+      font-weight: bold;
+      color: #ffdde1;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+    }
+
+    .corazon {
+      position: absolute;
+      font-size: 20px;
+      color: #ff5070;
+      animation: flotar 6s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes flotar {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="mensaje">
+    <h1>💖 ¿Regresamos? 💖</h1>
+    <p>
+      He pensado mucho en nosotros, en lo que vivimos y en las pendejadas que pasamos y en todas esas veces que nos pusimos mal por culpa del otro.   
+      Además en lo que aprendimos y en lo que aún podemos construir juntos. Ahora mas la llegada de una nueva vida en nuestras vidas. Quiero hacer las cosas bien contigo. <br><br>
+      Si tú también lo sientes... demonos una nueva oportunidad a nuestro amor. pero eso si, sin mentiras sin resentimientos, con amor mutuo entre ambos, por que somos uno para el otro y tenemos que confiarnos, por que ambos nos dedicamos tiempo. Yo voy estar para ty , y tu estes pora MII... 🌸.
+    </p>
+    
+    <div class="botones">
+      <button id="btnSi">Sí 💕</button>
+      <button id="btnNo">No 😔</button>
+    </div>
+    
+    <div class="mensaje-final" id="mensajeFinal">
+      <p>#19 tú y yo. S y N juntos por siempre TE QUIERO UN MONTON 💖</p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const btnSi = document.getElementById('btnSi');
+      const btnNo = document.getElementById('btnNo');
+      const mensajeFinal = document.getElementById('mensajeFinal');
+      
+      let contadorNo = 0;
+      let tamañoSi = 1;
+      
+      // Crear corazones flotantes
+      function crearCorazones() {
+        for (let i = 0; i < 15; i++) {
+          const corazon = document.createElement('div');
+          corazon.innerHTML = '❤️';
+          corazon.classList.add('corazon');
+          corazon.style.left = Math.random() * 100 + 'vw';
+          corazon.style.animationDelay = Math.random() * 5 + 's';
+          document.body.appendChild(corazon);
+        }
+      }
+      
+      crearCorazones();
+      
+      // Comportamiento del botón NO
+      btnNo.addEventListener('click', function() {
+        contadorNo++;
+        
+        // Reducir tamaño del botón NO
+        const tamañoActual = parseFloat(window.getComputedStyle(btnNo).fontSize);
+        btnNo.style.fontSize = (tamañoActual * 0.8) + 'px';
+        
+        // Reducir tamaño del botón NO en general
+        btnNo.style.transform = `scale(${1 - (contadorNo * 0.1)})`;
+        
+        // Aumentar tamaño del botón SÍ
+        tamañoSi += 0.1;
+        btnSi.style.transform = `scale(${tamañoSi})`;
+        
+        // Hacer que el botón NO desaparezca después de varios clics
+        if (contadorNo >= 5) {
+          btnNo.style.display = 'none';
+        }
+        
+        // Mover el botón NO a una posición aleatoria
+        const mensajeDiv = document.querySelector('.mensaje');
+        const mensajeRect = mensajeDiv.getBoundingClientRect();
+        
+        const maxX = mensajeRect.width - btnNo.offsetWidth;
+        const maxY = mensajeRect.height - btnNo.offsetHeight;
+        
+        const randomX = Math.random() * maxX;
+        const randomY = Math.random() * maxY;
+        
+        btnNo.style.position = 'absolute';
+        btnNo.style.left = randomX + 'px';
+        btnNo.style.top = randomY + 'px';
+      });
+      
+      // Comportamiento del botón SÍ
+      btnSi.addEventListener('click', function() {
+        mensajeFinal.style.display = 'block';
+        btnSi.style.display = 'none';
+        btnNo.style.display = 'none';
+        
+        // Crear más corazones
+        for (let i = 0; i < 20; i++) {
+          const corazon = document.createElement('div');
+          corazon.innerHTML = '❤️';
+          corazon.classList.add('corazon');
+          corazon.style.left = Math.random() * 100 + 'vw';
+          corazon.style.animationDelay = Math.random() * 3 + 's';
+          document.body.appendChild(corazon);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
